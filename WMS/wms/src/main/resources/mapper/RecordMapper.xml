@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wms.mapper.RecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.wms.entity.Record">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="goods" column="goods" jdbcType="INTEGER"/>
+            <result property="userid" column="userId" jdbcType="INTEGER"/>
+            <result property="adminId" column="admin_id" jdbcType="INTEGER"/>
+            <result property="count" column="count" jdbcType="INTEGER"/>
+            <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,goods,userId,
+        admin_id,count,createtime,
+        remark
+    </sql>
+
+    <select id="pageC" resultType="com.wms.entity.Record">
+        select * from record
+    </select>
+    <select id="pageCC" resultType="com.wms.entity.RecordRes">
+        SELECT
+            a.*,
+            b.name AS goodsname,
+            c.name AS storagename,
+            d.name AS goodstypename,
+            (SELECT u.name FROM user u WHERE u.id = a.userid) AS username,
+            (SELECT u.name FROM user u WHERE u.id = a.admin_id) AS adminname
+        FROM
+            record a
+                LEFT JOIN goods b ON a.goods = b.id
+                LEFT JOIN storage c ON b.storage = c.id
+                LEFT JOIN goodsType d ON b.goodsType = d.id
+            ${ew.customSqlSegment}
+    </select>
+</mapper>
