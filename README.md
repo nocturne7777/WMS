@@ -1,1 +1,12 @@
-一个基于 **Spring Boot + MyBatis-Plus + MySQL + Vue** 的简单仓库管理系统（WMS）示例项目。
+一个基于 **Spring Boot + MyBatis-Plus + MySQL + Vue** 的仓库管理系统（WMS）示例项目。
+
+目前已实现的核心功能包括：
+
+- 用户登录
+- 首页信息展示
+- 用户管理
+- 仓库管理
+- 分类管理
+- 商品管理
+- 出入库记录管理
+- 按角色动态加载菜单
